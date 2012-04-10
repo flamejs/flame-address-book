@@ -54,7 +54,7 @@ App.personsController = Ember.Object.create({
     doSearch: function() {
         var searchText = this.get('searchText');
         var searchResults = this.get('all').filter(function(person) {
-            return !!person.get('fullName').match(searchText);
+            return !!person.get('fullName').match(new RegExp(searchText, 'i'));
         }).sort(function(person1, person2) {
             return Ember.compare(person1.get('lastName'), person2.get('lastName'));
         });
@@ -101,8 +101,6 @@ App.personsController = Ember.Object.create({
 // handlebars template in the index.html, as done in this application, or by calling its
 // append method upon initializing your application.
 App.RootView = Flame.RootView.extend({
-    // The view covers the entire screen, as is usually the case with the root view.
-    layout: { top: 0, left: 0, right: 0, bottom: 0 },
     childViews: 'splitView'.w(),
 
     // A horizontal split view divides the view in two, showing a draggable separator between the two parts.
@@ -226,7 +224,11 @@ App.AboutPanel = Flame.Panel.extend({
     contentView: Flame.View.extend({
         layout: { top: 50, left: 20, right: 20, height: 150 },
         // Embedded handlebars templates are also handy for producing bits of HTML markup.
-        handlebars: 'This is an example application for '+
-            '<a href="https://github.com/flamejs/flame.js" target="_blank">Flame.js</a>.'
+        handlebars: '<p>This is an example application for '+
+            '<a href="https://github.com/flamejs/flame.js" target="_blank">Flame.js</a>.</p>'+
+            '<p>The source can be found on <a href="https://github.com/flamejs/flame-address-book"'+
+            ' target="_blank">GitHub</a>.</p>'+
+            '<p>Also check out the <a href="http://flamejs.github.com/flame-address-book/docs/app.html"'+
+            ' target="_blank">annotated source code</a>.</p>'
     })
 });
