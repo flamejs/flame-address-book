@@ -104,6 +104,12 @@ App.personsController = Ember.Object.create({
 // handlebars template in the index.html, as done in this application, or by calling its
 // append method upon initializing your application.
 App.RootView = Flame.RootView.extend({
+    // We need to bind to various properties of the controller quite a few times in the child views.
+    // Instead of repeating 'App.personsController' every time, we define it once here and then refer
+    // to this definition later on, with Flame's prefixed binding syntax. This is especially useful
+    // for defining reusable custom views: the controller to use can be defined just once where the
+    // view is used, and all its child views will then bind to that.
+    controller: App.personsController,
     childViews: 'splitView'.w(),
 
     // A horizontal split view divides the view in two, showing a draggable separator between the two parts.
@@ -146,8 +152,11 @@ App.RootView = Flame.RootView.extend({
                     title: '+',
                     // You can define the target either as a binding or as a literal. Either way, make sure
                     // the controller has been defined when this is evaluated (usually you want to load all
-                    // controllers before views).
-                    target: App.personsController,
+                    // controllers before views). Here we use Flame's special prefixed binding syntax: the
+                    // caret in the beginning of the binding path means to look up that property in the parent
+                    // view chain and bind to that. An alternative would be to use binding paths like
+                    // 'parentView.parentView.parentView.controller', but that's verbose and fragile.
+                    targetBinding: '^controller',
                     action: 'createPerson'
                 })
             }),
@@ -158,14 +167,14 @@ App.RootView = Flame.RootView.extend({
                 // Here we use a binding to bind the value of the text field to a property in the controller.
                 // The property is updated live when user types in the field. The controller has an observer
                 // that reacts to changes and updates the list of persons appropriately.
-                valueBinding: 'App.personsController.searchText'
+                valueBinding: '^controller.searchText'
             }),
 
             // List view is a view that creates a child view for each item in its content array.
             listView: Flame.ListView.extend({
                 layout: { top: 70, left: 0, right: 0, bottom: 0 },
-                contentBinding: 'App.personsController.searchResults',
-                selectionBinding: 'App.personsController.selected',
+                contentBinding: '^controller.searchResults',
+                selectionBinding: '^controller.selected',
                 // This is the view class that is used for the child views. It should always be a subclass
                 // of Flame.ListItemView.
                 itemViewClass: Flame.ListItemView.extend({
@@ -188,13 +197,13 @@ App.RootView = Flame.RootView.extend({
             layout: { top: 20, left: 20, right: 20 },
             // This binding uses a transform so that the resulting value is 'true' when no person has been selected,
             // hiding this view.
-            isVisibleBinding: Ember.Binding.from('App.personsController.selected').isNull().not(),
+            isVisibleBinding: Ember.Binding.from('^controller.selected').isNull().not(),
             childViews: 'formView deleteButtonView'.w(),
 
             // Flame.FormView is a helper that dynamically creates a number of fields with associated labels.
             // It's also able to show validation messages if the value of a field is not valid.
             formView: Flame.FormView.extend({
-                objectBinding: 'App.personsController.selected',
+                objectBinding: '^controller.selected',
                 labelWidth: 80,
                 controlWidth: 200,
                 properties: [
@@ -208,7 +217,7 @@ App.RootView = Flame.RootView.extend({
             deleteButtonView: Flame.ButtonView.extend({
                 layout: { left: 230, width: 80 },
                 title: 'Delete',
-                target: 'App.personsController',
+                targetBinding: '^controller',
                 action: 'confirmDelete'
             })
         })

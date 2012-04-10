@@ -1,5 +1,6 @@
 .title {
     background: -webkit-gradient(linear, left top, left bottom, from(#EFEFEF), to(#CACACA));
+    background: -moz-linear-gradient(top, #EFEFEF, #CACACA);
     border-top: 1px solid #FFF;
     border-bottom: 1px solid #AAA;
     font-size: 14px;
