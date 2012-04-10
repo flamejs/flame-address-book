@@ -62,10 +62,13 @@ App.personsController = Ember.Object.create({
     }.observes('searchText', 'all.@each.fullName'),
 
     createPerson: function() {
-        this.get('all').pushObject(App.Person.create({
+        var person = App.Person.create({
             firstName: 'New',
             lastName: 'Person'
-        }));
+        });
+        this.get('all').pushObject(person);
+        // Select the new person.
+        this.set('selected', person);
     },
 
     // This function is called when user clicks the 'Delete' button.
