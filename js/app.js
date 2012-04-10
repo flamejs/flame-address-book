@@ -1,6 +1,6 @@
 // The very first thing to do is to create the application namespace. This is done just like
 // normally when using Ember.js.
-var App = Em.Application.create();
+var App = Ember.Application.create();
 
 // ---
 
@@ -23,7 +23,7 @@ App.Person = Ember.Object.extend(Flame.Validatable, {
 // ---
 
 // Next we define a controller for our application. In Flame/Ember, there's no need to use proxy
-// objects (like in SproutCore 1.x). Typically you create one controller for each model class.
+// objects (like in SproutCore 1.x). A useful pattern is to create one controller for each model class.
 // You can think of this as a coordinating controller.
 App.personsController = Ember.Object.create({
     // This array holds all persons. This can be seen to serve the function of a mediating controller.
