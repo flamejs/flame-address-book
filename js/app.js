@@ -160,7 +160,7 @@ App.RootView = Flame.RootView.extend({
 
             // List view is a view that creates a child view for each item in its content array.
             listView: Flame.ListView.extend({
-                layout: { top: 70, left: 0, right: 0 },
+                layout: { top: 70, left: 0, right: 0, bottom: 0 },
                 contentBinding: 'App.personsController.searchResults',
                 selectionBinding: 'App.personsController.selected',
                 // This is the view class that is used for the child views. It should always be a subclass
