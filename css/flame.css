@@ -43,24 +43,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-/* This is outside the form-view element, so we can't use it as parent selector */
-.flame-form-view-validation-error .error-triangle {
-  margin: 3px 0px 3px 0px;
-  width: 14px;
-  height: 28px;
-  float: left;
-  background-image: url("../images/error_triangle.png");
-  background-repeat: no-repeat; }
-.flame-form-view-validation-error .error-box {
-  margin: 3px 3px 3px 14px;
-  padding: 0px 10px 0px 6px;
-  line-height: 28px;
-  background-color: #cd443d;
-  border-radius: 0px 3px 3px 0px;
-  color: white;
-  font-weight: bold;
-  -moz-box-shadow: 1px 1px 2px #333333;
-  -webkit-box-shadow: 1px 1px 4px #333333; }
 body {
   font-size: 12px;
   -ms-user-select: none;
@@ -740,3 +722,21 @@ input[type="password"] {
 .loading-indicator {
   width: 16px;
   height: 16px; }
+/* This is outside the form-view element, so we can't use it as parent selector */
+.flame-form-view-validation-error .error-triangle {
+  margin: 3px 0px 3px 0px;
+  width: 14px;
+  height: 28px;
+  float: left;
+  background-image: url("../images/error_triangle.png");
+  background-repeat: no-repeat; }
+.flame-form-view-validation-error .error-box {
+  margin: 3px 3px 3px 14px;
+  padding: 0px 10px 0px 6px;
+  line-height: 28px;
+  background-color: #cd443d;
+  border-radius: 0px 3px 3px 0px;
+  color: white;
+  font-weight: bold;
+  -moz-box-shadow: 1px 1px 2px #333333;
+  -webkit-box-shadow: 1px 1px 4px #333333; }
